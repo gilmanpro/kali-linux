@@ -1,0 +1,101 @@
+# Rutas sensibles para route-scan (sin slash inicial, una por línea)
+# VCS
+.git/HEAD
+.git/config
+.svn/entries
+.hg/store
+# Config / env
+.env
+.env.local
+.env.production
+config.php
+configuration.php
+wp-config.php.bak
+wp-config.php.save
+web.config
+app.config
+catalina.properties
+settings.py
+application.yml
+application.properties
+config.js
+config.json
+env.js
+# Backups / dumps
+backup
+backups
+db.sql
+dump.sql
+database.sql
+backup.zip
+www.zip
+db.zip
+# Paneles
+admin
+administrator
+manager/html
+console
+jenkins
+grafana
+kibana
+phpmyadmin
+pma
+adminer.php
+# Documentacion API
+swagger-ui.html
+swagger/index.html
+api-docs
+openapi.json
+openapi.yaml
+graphql
+# Spring Boot Actuator
+actuator
+actuator/env
+actuator/heapdump
+actuator/mappings
+actuator/health
+# Webserver status
+server-status
+server-info
+status
+# Info files
+robots.txt
+sitemap.xml
+.well-known/security.txt
+README.md
+CHANGELOG
+CHANGELOG.md
+VERSION
+version.txt
+LICENSE
+# Archivos expuestos
+phpinfo.php
+info.php
+test.php
+index.php.bak
+.htaccess
+.htpasswd
+# API paths
+api
+api/v1
+api/config
+api/settings
+api/keys
+api/users
+api/admin
+debug
+logs
+log/access.log
+metrics
+prometheus
+debug/pprof
+trace
+old
+temp
+tmp
+files
+uploads
+wp-content
+wp-includes
+wp-admin
+wp-json
