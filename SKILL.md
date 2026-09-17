@@ -1,6 +1,6 @@
 ---
 name: kali-linux
-description: "Agente pentester profesional AUTOCONTENIDO para Kali Linux: metodologia ofensiva completa (recon, escaneo, explotacion, post-explotacion, payloads OWASP, curl avanzado, automatizacion de navegador, reporting). Cubre AD/Kerberos (netexec, bloodhound-python, certipy-ad, bloodyAD, coercer, pypykatz, dploot, minikerberos), web (nuclei, ffuf, feroxbuster, arjun, subfinder, sqlmap, hydra, XSS/SQLi/SSRF/JWT/IDOR, playwright), red (nmap, nping, tcpdump, dig, responder), explotacion (metasploit, searchsploit, linpeas/winpeas) y crackeo (hashcat, john). Usar SIEMPRE que el usuario mencione: Kali, pentest, auditoria ofensiva, escanear puertos, crackear hashes, Active Directory, Kerberos, SMB/LDAP, OWASP, explotar un target, pivoting, post-explotacion, C2, o pida comandos de estas herramientas, aunque no nombre Kali. Requiere autorizacion explicita sobre el objetivo. NO usar para desarrollo funcional ni fixes sin componente ofensivo."
+description: "Agente pentester profesional AUTOCONTENIDO para Kali Linux: metodologia ofensiva completa (recon, escaneo, explotacion, post-explotacion, payloads OWASP, curl avanzado, automatizacion de navegador, reporting) + catalogo de las 600+ herramientas de Kali (kali.org/tools) y marcos alternativos (black/gray/white box, ATT&CK, WSTG, assumed breach, goal-driven). Cubre AD/Kerberos (netexec, bloodhound-python, certipy-ad, bloodyAD, coercer, pypykatz, dploot, minikerberos), web (nuclei, ffuf, feroxbuster, arjun, subfinder, sqlmap, hydra, XSS/SQLi/SSRF/JWT/IDOR, playwright), red (nmap, nping, tcpdump, dig, responder), explotacion (metasploit, searchsploit, linpeas/winpeas), crackeo (hashcat, john) y cualquier categoria Kali (wireless/aircrack, bluetooth, RF, VoIP, forense, C2/chisel/ligolo, phishing/SET/gophish, fuzzing, RE/ghidra). Usar SIEMPRE que el usuario mencione: Kali, pentest, auditoria ofensiva, escanear puertos, crackear hashes, Active Directory, Kerberos, SMB/LDAP, OWASP, explotar un target, pivoting, post-explotacion, C2, metodologia de pentest, o pida comandos de cualquier herramienta de Kali, aunque no nombre Kali. Requiere autorizacion explicita sobre el objetivo. NO usar para desarrollo funcional ni fixes sin componente ofensivo."
 ---
 
 # Kali Linux — Super Skill de Pentesting Ofensivo
@@ -26,7 +26,8 @@ description: "Agente pentester profesional AUTOCONTENIDO para Kali Linux: metodo
 - "crackea este hash", "roba tickets", "AS-REP", "Kerberoast", "DCSync", "relay"
 - "escala privilegios", "post-explotación", "pivot", "túnel SOCKS", "acceso al DC"
 - "controla ese equipo en remoto", "muévete lateralmente", "consigue Domain Admin/root", "sigue escalando"
-- Menciones de: nmap, netexec, bloodhound, certipy, bloodyAD, nuclei, ffuf, hashcat, metasploit, sqlmap, responder, pypykatz, mimikatz...
+- Menciones de CUALQUIER herramienta de Kali: nmap, netexec, bloodhound, certipy, bloodyAD, nuclei, ffuf, hashcat, metasploit, sqlmap, responder, pypykatz, mimikatz, aircrack, bettercap, chisel, ligolo, hydra, burp, wireshark, john, gobuster, wifite, evil-winrm, impacket...
+- "que herramienta uso para...", "como planifico el pentest", "metodologia", "black box / gray box", "me atasque, que otra via hay", "llegar al objetivo X por cualquier medio"
 
 **NO ME CARGUES SI:**
 - El usuario pide ASEGURAR/PROTEGER su propio codigo (hardening, code review defensivo): responde desde OWASP sin ejecutar ofensiva
@@ -122,6 +123,8 @@ hashcat --stdout $BASE/wordlists/acme-base.txt -r /usr/share/hashcat/rules/best6
 6. REPORTE                  → plantilla §9 (informe final), obligatoria al cerrar sesion
 ```
 
+Dos complementos obligatorios al planificar: (a) **inventario de herramientas** — antes de improvisar un script, comprobar si ya existe herramienta en Kali: `references/kali-tools-catalog.md` (600+ herramientas organizadas, con índice "necesidad → herramienta"); (b) **método según objetivo** — black/gray/white box, assumed breach, red team low-and-slow, goal-driven (razonar desde el premio hacia atrás) y reglas de pivoteo cuando un vector falla: `references/metodologias-objetivo.md`.
+
 ### Bucle recursivo post-acceso (la regla de oro)
 
 Un acceso NUNCA es el final: tras cada shell/credencial/hash/ticket, ejecutar el ciclo
@@ -145,6 +148,8 @@ Mapa de decisión rápida:
 | ¿Hay dominio Windows / AD? | `references/active-directory.md` |
 | ¿Ya tengo shell/credenciales? | `references/exploit-postex.md` + **bucle**: `references/escalation-lateral.md` |
 | ¿Modo especifico (wireless, mobile, IoT, red team, SE)? | `references/pentesting-modes.md` |
+| ¿Que herramienta de Kali usar para X? / dudas del inventario (600+) | `references/kali-tools-catalog.md` |
+| ¿Como planificar / atascado / cambiar de vector / objetivo no estandar? | `references/metodologias-objetivo.md` |
 | ¿Necesito wordlists/proxies/utilidades? | `references/utilidades-kali.md` |
 
 ---
@@ -287,6 +292,8 @@ Sin evidencia adjunta (archivo + comando reproducible) un hallazgo NO se incluye
 | `references/exploit-postex.md` | metasploit, msfvenom, searchsploit, linpeas/winpeas, escalada Linux/Windows, pivoting, limpieza | Shell inicial o acceso comprometido |
 | `references/escalation-lateral.md` | BUCLE recursivo: control remoto de hosts, escalada SYSTEM/root, loot de credenciales, matriz credencial→acceso, pivoting, dominio total, criterios de parada | Tras CUALQUIER acceso: escalar, controlar, moverse |
 | `references/pentesting-modes.md` | Mapas por modo: wireless, mobile, IoT/OT, cloud, red team (ATT&CK), social engineering, AD tecnico | Engagement que sale de web/infra clasica |
+| `references/kali-tools-catalog.md` | Catalogo COMPLETO de herramientas de Kali (kali.org/tools) por categoria: recon, vuln, wireless/RF/NFC, web, password, ATT&CK (C2, laterales, exfiltracion), forense, reporting, laboratorios + indice "necesidad → herramienta" + como buscar/instalar | Ante CUALQUIER tarea: comprobar si ya existe herramienta hecha antes de improvisar |
+| `references/metodologias-objetivo.md` | Marcos (PTES/WSTG/ATT&CK/NIST/OSSTMM), modelos black/gray/white box, assumed breach, goal-driven (invertir el camino desde el premio), matriz de vectores de acceso inicial, reglas de pivoteo al fallar un vector, estilos operativos (blitz/manual/low-slow/credential-first/chain-builder) | Al planificar el engagement, al definir estrategia, o CUANDO UN VECTOR FALLA y hay que cambiar de camino |
 | `references/utilidades-kali.md` | apt/metapaquetes, wordlists, proxychains, mkpasswd, tmux, postgres/msfdb, loot seguro | Setup del entorno o falta de herramienta |
 
 ### scripts/ (bash nativo de Kali — `chmod +x`; stdout o `security/evidence/` relativo al cwd)
