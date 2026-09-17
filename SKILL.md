@@ -1,6 +1,6 @@
 ---
 name: kali-linux
-description: "Agente pentester profesional AUTOCONTENIDO para Kali Linux: metodologia ofensiva completa (recon, escaneo, explotacion, post-explotacion, payloads OWASP, curl avanzado, automatizacion de navegador, reporting) + catalogo de las 600+ herramientas de Kali (kali.org/tools) y marcos alternativos (black/gray/white box, ATT&CK, WSTG, assumed breach, goal-driven). Cubre AD/Kerberos (netexec, bloodhound-python, certipy-ad, bloodyAD, coercer, pypykatz, dploot, minikerberos), web (nuclei, ffuf, feroxbuster, arjun, subfinder, sqlmap, hydra, XSS/SQLi/SSRF/JWT/IDOR, playwright), red (nmap, nping, tcpdump, dig, responder), explotacion (metasploit, searchsploit, linpeas/winpeas), crackeo (hashcat, john) y cualquier categoria Kali (wireless/aircrack, bluetooth, RF, VoIP, forense, C2/chisel/ligolo, phishing/SET/gophish, fuzzing, RE/ghidra). Usar SIEMPRE que el usuario mencione: Kali, pentest, auditoria ofensiva, escanear puertos, crackear hashes, Active Directory, Kerberos, SMB/LDAP, OWASP, explotar un target, pivoting, post-explotacion, C2, metodologia de pentest, o pida comandos de cualquier herramienta de Kali, aunque no nombre Kali. Requiere autorizacion explicita sobre el objetivo. NO usar para desarrollo funcional ni fixes sin componente ofensivo."
+description: "Agente pentester profesional AUTOCONTENIDO para Kali Linux: metodologia ofensiva completa (recon, escaneo, explotacion, post-explotacion, payloads OWASP, curl avanzado, automatizacion de navegador, reporting) + catalogo de las 600+ herramientas de Kali (kali.org/tools) y marcos alternativos (black/gray/white box, ATT&CK, WSTG, assumed breach, goal-driven). Cubre AD/Kerberos (netexec, bloodhound-python, certipy-ad, bloodyAD, coercer, pypykatz, dploot, minikerberos), web (nuclei, ffuf, feroxbuster, arjun, subfinder, sqlmap, hydra, XSS/SQLi/SSRF/JWT/IDOR, playwright), red (nmap, nping, tcpdump, dig, responder), explotacion (metasploit, searchsploit, linpeas/winpeas), crackeo (hashcat, john) y cualquier categoria Kali (wireless/aircrack, bluetooth, RF, VoIP, forense, C2/chisel/ligolo, phishing/SET/gophish, fuzzing, RE/ghidra) + 3 pentests resueltos paso a paso con salidas reales interpretadas y checklist WSTG v4.2 de auditoria web exhaustiva. Usar SIEMPRE que el usuario mencione: Kali, pentest, auditoria ofensiva, escanear puertos, crackear hashes, Active Directory, Kerberos, SMB/LDAP, OWASP, explotar un target, pivoting, post-explotacion, C2, metodologia de pentest, o pida comandos de cualquier herramienta de Kali, aunque no nombre Kali. Requiere autorizacion explicita sobre el objetivo. NO usar para desarrollo funcional ni fixes sin componente ofensivo."
 ---
 
 # Kali Linux — Super Skill de Pentesting Ofensivo
@@ -123,7 +123,7 @@ hashcat --stdout $BASE/wordlists/acme-base.txt -r /usr/share/hashcat/rules/best6
 6. REPORTE                  → plantilla §9 (informe final), obligatoria al cerrar sesion
 ```
 
-Dos complementos obligatorios al planificar: (a) **inventario de herramientas** — antes de improvisar un script, comprobar si ya existe herramienta en Kali: `references/kali-tools-catalog.md` (600+ herramientas organizadas, con índice "necesidad → herramienta"); (b) **método según objetivo** — black/gray/white box, assumed breach, red team low-and-slow, goal-driven (razonar desde el premio hacia atrás) y reglas de pivoteo cuando un vector falla: `references/metodologias-objetivo.md`.
+Cuatro complementos obligatorios al planificar: (a) **inventario de herramientas** — antes de improvisar un script, comprobar si ya existe herramienta en Kali: `references/kali-tools-catalog.md` (600+ herramientas organizadas, con índice "necesidad → herramienta"); (b) **método según objetivo** — black/gray/white box, assumed breach, red team low-and-slow, goal-driven (razonar desde el premio hacia atrás) y reglas de pivoteo cuando un vector falla: `references/metodologias-objetivo.md`; (c) **cómo se ejecuta de verdad** — 3 pentests completos resueltos con salidas reales interpretadas paso a paso: `references/recorridos-completos.md`; (d) auditoría web sin lagunas: `references/checklist-wstg.md`.
 
 ### Bucle recursivo post-acceso (la regla de oro)
 
@@ -150,7 +150,42 @@ Mapa de decisión rápida:
 | ¿Modo especifico (wireless, mobile, IoT, red team, SE)? | `references/pentesting-modes.md` |
 | ¿Que herramienta de Kali usar para X? / dudas del inventario (600+) | `references/kali-tools-catalog.md` |
 | ¿Como planificar / atascado / cambiar de vector / objetivo no estandar? | `references/metodologias-objetivo.md` |
+| ¿Como se hace de principio a fin? Ejemplos resueltos con salidas reales | `references/recorridos-completos.md` |
+| ¿Auditoria web exhaustiva que no deje categorias sin probar? | `references/checklist-wstg.md` |
 | ¿Necesito wordlists/proxies/utilidades? | `references/utilidades-kali.md` |
+
+---
+
+## 2.1 El micro-ciclo operativo (cómo se trabaja CADA hallazgo)
+
+Toda acción ofensiva repite este ciclo de 5 pasos — es lo que convierte un escaneo en un pentest:
+
+```
+1. DETECTAR   → una herramienta/salida sugiere algo (puerto, versión, ruta, parámetro, hash)
+2. VERIFICAR  → confirmar con 2ª fuente/manual (¿soft-404? ¿banner real? ¿el bug responde o lo cachea el WAF?)
+3. EXPLOTAR   → demostrar impacto concreto (leer un fichero, no "posible LFI" — o declarar el límite)
+4. INTERPRETAR→ ¿qué abre esto? credencial→matriz protocolo-host; SSRF→nube; user→spraying
+5. DOCUMENTAR → notes.md EN el momento: comando exacto + archivo de evidencia + interpretación
+   ... y la info nueva REALIMENTA el paso 1 (bucle recursivo §2)
+```
+
+**Regla de oro de las salidas:** si el output de una herramienta NO cambia tu próximo paso, no la ejecutes en bucle: o interpretas mejor, o cambias de vector (reglas de pivoteo en `references/metodologias-objetivo.md` §5).
+
+**Recorridos completos resueltos** (web black-box → cloud creds; LAN sin credenciales → Domain Admin; CTF Linux → root → pivot), con salidas de ejemplo y decisiones paso a paso: `references/recorridos-completos.md`. Leer al inicio de un engagement nuevo como calentamiento del plan.
+
+### Recursos web de consulta (cuando esta skill no tiene el detalle)
+
+| Recurso | Uso |
+|---|---|
+| `https://book.hacktricks.wiki/` | Enciclopedia ofensiva por servicio/OS/tecnología: métodos, bypasses, cheatsheets. La primera parada para servicios no cubiertos en `references/` |
+| `https://gtfobins.github.io/` | Privesc con binarios legítimos (sudo/SUID/capabilities/cron). Windows: `https://lolbas-project.github.io/` |
+| `https://github.com/swisskyrepo/PayloadsAllTheThings` | Payloads y técnicas por clase de vuln cuando `owasp-web.md` no basta |
+| `https://attack.mitre.org/` | Tácticas/técnicas (T1xxx) para red team y para mapear el informe |
+| `https://wstg.owasp.org/v4.2/` | Checklist oficial web (traducida a `references/checklist-wstg.md`) |
+| `https://www.kali.org/tools/<herramienta>/` | Documentación oficial de cada herramienta Kali |
+| `searchsploit` (local, `--update`) / `https://exploit-db.com` | CVEs y PoCs por producto+versión |
+
+> Con `webfetch` disponible: consultar estos recursos SIEMPRE antes de declarar "no sé cómo explotar X".
 
 ---
 
@@ -294,6 +329,8 @@ Sin evidencia adjunta (archivo + comando reproducible) un hallazgo NO se incluye
 | `references/pentesting-modes.md` | Mapas por modo: wireless, mobile, IoT/OT, cloud, red team (ATT&CK), social engineering, AD tecnico | Engagement que sale de web/infra clasica |
 | `references/kali-tools-catalog.md` | Catalogo COMPLETO de herramientas de Kali (kali.org/tools) por categoria: recon, vuln, wireless/RF/NFC, web, password, ATT&CK (C2, laterales, exfiltracion), forense, reporting, laboratorios + indice "necesidad → herramienta" + como buscar/instalar | Ante CUALQUIER tarea: comprobar si ya existe herramienta hecha antes de improvisar |
 | `references/metodologias-objetivo.md` | Marcos (PTES/WSTG/ATT&CK/NIST/OSSTMM), modelos black/gray/white box, assumed breach, goal-driven (invertir el camino desde el premio), matriz de vectores de acceso inicial, reglas de pivoteo al fallar un vector, estilos operativos (blitz/manual/low-slow/credential-first/chain-builder) | Al planificar el engagement, al definir estrategia, o CUANDO UN VECTOR FALLA y hay que cambiar de camino |
+| `references/recorridos-completos.md` | 3 pentests resueltos paso a paso con salidas reales e interpretadas: web black-box→cloud creds, LAN sin credenciales→Domain Admin, CTF Linux→root→pivot. Reglas transversales | Como calentamiento al inicio de cada engagement y para aprender "como se pensa" en cada decision |
+| `references/checklist-wstg.md` | Checklist OWASP WSTG v4.2 completa (INFO/CONFIG/IDNT/AUTH/SESS/AZTR/VALID/CRYPT/LOGIC/CLIENT/API) mapeada a herramientas y scripts de esta skill | En toda auditoria web para garantizar cobertura y reportar con IDs WSTG |
 | `references/utilidades-kali.md` | apt/metapaquetes, wordlists, proxychains, mkpasswd, tmux, postgres/msfdb, loot seguro | Setup del entorno o falta de herramienta |
 
 ### scripts/ (bash nativo de Kali — `chmod +x`; stdout o `security/evidence/` relativo al cwd)
